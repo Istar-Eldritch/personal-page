@@ -1,0 +1,7 @@
+
+.message {
+  @include absolute-center;
+  background-color: #ddd;
+  height: 300px;
+  width: 600px;
+}
