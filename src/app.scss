@@ -1,5 +1,8 @@
 @import '../node_modules/foundation-sites/scss/foundation';
-@import './message';
+@import '../foundation-icons/foundation-icons.css';
 
 @include foundation-global-styles;
-@include foundation-button;
+
+//@include foundation-typography;
+
+@import './message';
