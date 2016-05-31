@@ -1,6 +1,8 @@
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
   entry: {
-    app: './src/app.js'
+    app: './src/index.js'
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -9,12 +11,13 @@ module.exports = {
     path: __dirname + '/public',
     filename: 'index.js'
   },
+  plugins: [new CopyWebpackPlugin([{from: 'src/index.html'}])],
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.(jsx|js)?$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader']
+        loader: 'babel-loader'
       },
       {
         test: /\.(scss|css|sass)$/,
