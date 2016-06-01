@@ -1,0 +1,59 @@
+@import '../../node_modules/foundation-sites/scss/foundation';
+@import '../colors';
+@include foundation-global-styles;
+
+.message {
+  @include absolute-center;
+  background-color: $light-gray;
+  border-color: $dark-gray;
+  border-style: solid;
+  border-width: 1px;
+  height: auto;
+  outline-width: 3px;
+  padding: 20px;
+  width: 600px;
+
+
+  .left {
+    float: left;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    position: relative;
+
+    a {
+      color: $dark-gray;
+
+      :visited {
+        color: $dark-gray;
+      }
+
+      :hover {
+        color: #000;
+      }
+    }
+
+    .social {
+      @include horizontal-center;
+      font-size: 1.1em;
+    }
+  }
+
+
+
+  .content {
+    font-family: 'CodeNewRoman';
+    font-style: normal;
+    text-indent: 1em;
+
+    h1 {
+      display: inline;
+      line-height: normal;
+      margin: 0;
+    }
+
+    .first {
+      display: inline;
+    }
+  }
+
+}

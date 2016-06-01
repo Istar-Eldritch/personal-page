@@ -11,7 +11,9 @@ module.exports = {
     path: __dirname + '/public',
     filename: 'index.js'
   },
-  plugins: [new CopyWebpackPlugin([{from: 'src/index.html'}])],
+  plugins: [
+    new CopyWebpackPlugin([{from: 'src/index.html'}, {from: 'src/keybase.txt'}]),
+  ],
   module: {
     loaders: [
       {
