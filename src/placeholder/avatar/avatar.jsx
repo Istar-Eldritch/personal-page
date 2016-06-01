@@ -4,7 +4,7 @@ import style from './avatar.scss'
 
 const Avatar = () => (
   <div className="avatar">
-    <Gravatar email="me@ruben.io" size="99"/>
+    <Gravatar alt="Ruben Paz" email="me@ruben.io" size="99"/>
   </div>
 )
 
