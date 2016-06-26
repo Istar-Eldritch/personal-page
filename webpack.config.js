@@ -12,7 +12,7 @@ module.exports = {
     filename: 'index.js'
   },
   plugins: [
-    new CopyWebpackPlugin([{from: 'src/index.html'}, {from: 'src/keybase.txt'}]),
+    new CopyWebpackPlugin([{from: 'src/index.html'}, {from: 'src/keybase.txt'}, {from: 'social', to: 'social'}]),
   ],
   module: {
     loaders: [

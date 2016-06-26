@@ -7,10 +7,16 @@ const PlaceholderMessage = () => (
     <div className="left">
       <Avatar />
 
-      <div className="social">
-        <a href="https://github.com/Istar-Eldritch"><i className="fi-social-github"></i></a>
-        <a href="https://twitter.com/IstarEldritch"><i className="fi-social-twitter"></i></a>
-        <a href="https://www.linkedin.com/in/rubenpaz"><i className="fi-social-linkedin"></i></a>
+      <div className="social-container">
+        <div className="social">
+          <a href="https://github.com/Istar-Eldritch"><img src="social/github.png"/></a>
+          &nbsp;
+          <a href="https://twitter.com/IstarEldritch"><img src="social/twitter.png"/></a>
+          &nbsp;
+          <a href="https://www.linkedin.com/in/rubenpaz"><img src="social/linkedin.png"/></a>
+          &nbsp;
+          <a href="https://keybase.io/istar"><img src="social/keybase.png"/></a>
+        </div>
       </div>
     </div>
 

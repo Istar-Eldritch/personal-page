@@ -32,9 +32,22 @@
       }
     }
 
+    .social-container {
+      // position: static;
+      position:inherit;
+      width: 100%;
+    }
     .social {
+      display: inline-block;
       @include horizontal-center;
+      margin: auto;
       font-size: 1.1em;
+      position: inherit;
+
+      img {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 
