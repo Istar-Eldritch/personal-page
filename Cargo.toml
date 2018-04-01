@@ -1,0 +1,12 @@
+[package]
+name = "personal-page"
+version = "0.1.0"
+authors = ["Ruben Paz <me@ruben.io>"]
+
+[dependencies]
+
+[dependencies.yew]
+git = "https://github.com/DenisKolodin/yew"
+
+[dependencies.pulldown-cmark]
+git = "https://github.com/google/pulldown-cmark"
