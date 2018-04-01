@@ -1,0 +1,68 @@
+==================================================================
+https://keybase.io/istar
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://ruben.io
+  * I am istar (https://keybase.io/istar) on keybase.
+  * I have a public key with fingerprint 526C 12B6 A612 70F0 B474  7CCC 61A8 4D74 84B3 0D23
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "01017b3173e8229b729e958bca72ba7f19a673bc4d4f297d6445db2011e3b79ae5470a",
+            "fingerprint": "526c12b6a61270f0b4747ccc61a84d7484b30d23",
+            "host": "keybase.io",
+            "key_id": "61a84d7484b30d23",
+            "kid": "01017b3173e8229b729e958bca72ba7f19a673bc4d4f297d6445db2011e3b79ae5470a",
+            "uid": "bea608ec124fc0a2be64a24ae859bd19",
+            "username": "istar"
+        },
+        "service": {
+            "hostname": "ruben.io",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1465949816,
+    "expire_in": 157680000,
+    "prev": "09299ef9130fcb55f58e0249198ce80570da0740686e6c6c901c962a24a8d84a",
+    "seqno": 4,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.0.53
+Comment: https://keybase.io/crypto
+
+yMIkAnicrVJbSBVBGD4nL+mpIJMuRBhsEFRis3tmZ3ZOheRTdMIuVhpFp5ndWV21
+3dPuqoVZRJRRVHZDfcjTBcS0IKWCgsRMsehCFD6IQVcsuhh1egqSdq3eemxehvnn
++77/+z/+vikpgVDw7t6nr0byp28KPrjTUBUo3tays1ZglrZLiNQKFXz84pUad9xY
+haEJEQGIQMQsLOIwVySJMCwRTmSFqRRLjGJdJBThMFOhBnWJYA1BKGtMAqLIwwwT
+ymWIARVyBd0wS7kdtw3T9WRlCamixBBFooSBDhjEEKuqikSqQA1DBbIw0KSwRyyz
+HJ/hmWPU4XmG5dW8R2zc3j/w/9l31bgc4xQBhXueoa4CKjGOIJUg5YpMmCYSH+hw
+26TbuYc2HJfaQl2u4JWqDZX7qfpj/Pm2qxg3fw8Sty3XUq1Kr1rmunEn4rPcXXEf
+VsNZ7I9AjBmm5gXoMaq57RiWKURED6m6hq8oQiQTSBQR5Qp8Z9yweczwETJGCvCO
+34dX+6kQiRCuEzEMdJXJsi4rHEiQiERRuQJkDDQKMARIQRypSCVAVAmS/EkVTYF+
+Hg7fYVpCBHo2aakn6RilJnWrbC7U9fZsSQ0EQ4H0tAn+YgVCmVP/rtvAoYljyMjP
+ujZQECt+/u7GoJRs+zzYZkeH8zo+pP9IpuoNzTlFR9ryFh3/NrivCTRn1ZQv7jL7
+MrLnlHYtqb79rKbl8sonYPRlS/qFzlZ3tGLGzHs5KaFA55uhySPnEkvvN208kL9x
+2en5+4T+1vNKa8Gkj6tWn93z+FY4mv4imTz1KHXd8NcStLd+Q+r60ImOhesOsN7N
+o3NXZQ9Nin65XrR6ffRhwilZsKY98/Chw0U9o2nR7pOwfiiYuXykUds6u25W5cil
+q2krOk7XXOofe/v+4ljhGXosq8O02hfsfz3v/NyhYNfB5JXFOT8XHl0771NGovB7
+QWPuN9Sd2FBffnN3YgueVjHlF7Q0OsM=
+=1ZY/
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/istar
+
+==================================================================
