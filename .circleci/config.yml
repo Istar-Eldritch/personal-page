@@ -23,43 +23,18 @@ jobs:
       - image: circleci/rust:latest-node
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - cargo
-      - restore_cache:
-          keys:
-            - personal-page-{{ checksum "Cargo.lock" }}
-      - restore_cache:
-          keys:
-            - personal-page-{{ checksum "package-lock.json" }}
-
-      - run: npm install
-      - run: rustup self update
-      - run: rustup toolchain add nightly
-      - run: rustup default nightly
-      - run: rustup component add rustfmt-preview --toolchain=nightly
-      - run: echo "$(git rev-parse --short HEAD)" > tag.txt
-      - run: cargo +nightly fmt --all -- --check
-      - run: cargo test --release
-      - run: npm run css
-      - run: cargo install cargo-web
-      - run: cargo web deploy
-      - save_cache:
-          key: personal-page-{{ checksum "Cargo.lock" }}
-          paths:
-            - "target"
-            - "~/.cargo"
-            - "~/.rustup"
-            - /usr/local/cargo/registry/cache
-      - save_cache:
-          key: personal-page-{{ checksum "package-lock.json" }}
-          paths:
-            - "node_modules"
-
+      - run:
+          name: Get zola
+          command: |
+            wget https://github.com/getzola/zola/releases/download/v0.5.1/zola-v0.5.1-x86_64-unknown-linux-gnu.tar.gz -O zola.tar.gz
+            tar -xf zola.tar.gz
+      - run:
+          name: Build with zola
+          command: ./zola build
       - persist_to_workspace:
           root: .
           paths:
-            - target
+            - public
 
   release_gh-pages:
     docker:
@@ -80,7 +55,7 @@ jobs:
             git rm -fr .
             cd ..
 
-            cp -a target/deploy/. repo/.
+            cp -a public/. repo/.
 
             mkdir -p repo/.circleci && cp -a .circleci/. repo/.circleci/.
 
