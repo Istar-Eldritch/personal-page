@@ -1,0 +1,66 @@
+version: 2
+
+workflows:
+  version: 2
+  test_and_release:
+    jobs:
+      - test_and_make:
+          filters:
+            branches:
+              ignore:
+                - gh-pages
+      - release_gh-pages:
+          requires:
+            - test_and_make 
+          filters:
+            branches:
+              only:
+                - master
+jobs:
+  test_and_make:
+
+    docker:
+      - image: circleci/rust:latest-node
+    steps:
+      - checkout
+      - run:
+          name: Get zola
+          command: |
+            wget https://github.com/getzola/zola/releases/download/v0.5.1/zola-v0.5.1-x86_64-unknown-linux-gnu.tar.gz -O zola.tar.gz
+            tar -xf zola.tar.gz
+      - run:
+          name: Build with zola
+          command: ./zola build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - public
+
+  release_gh-pages:
+    docker:
+      - image: circleci/rust:latest-node
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Push to gh-pages
+          command: |
+            git config --global user.email "me+ci@ruben.io"
+            git config --global user.name "Ruben Paz"
+
+            git clone $CIRCLE_REPOSITORY_URL repo
+            cd repo
+            git checkout gh-pages
+            git rm -fr .
+            cd ..
+
+            cp -a public/. repo/.
+
+            mkdir -p repo/.circleci && cp -a .circleci/. repo/.circleci/.
+
+            cd repo
+            git add -A
+            git commit -m "Automated deployment: ${CIRCLE_SHA1}" --allow-empty
+
+            git push origin gh-pages
