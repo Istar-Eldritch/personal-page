@@ -15,7 +15,6 @@
     <meta name="author" content="Ruben Paz">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
- 	  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="/index.css">
   {% endblock head %}
   <!--[if lt IE 9]>
@@ -26,17 +25,21 @@
 <body>
   <section class="landing">
     <div class="landing_bg">
-      <div class="full-h scroll">
+      <div class="">
         <div class="container">
         <!-- TODO: Make this menu responsive--!>
-        <div class="row justify-content-end mb-5 p-2">
+        <div class="menu">
         {% for menu in config.extra.menu %}
-            <a class="col-md-auto" href="{{ menu.path }}">{{ menu.title }}</a>
+            <a class="menu-item" href="{{ menu.path }}">{{ menu.title }}</a>
         {% endfor %}
         </div>
+
+        <div class="content">
           {% block content %}
             {{ section.content | safe }}
           {% endblock content %}
+
+        </div>
         </div>
       </div>
     </div>

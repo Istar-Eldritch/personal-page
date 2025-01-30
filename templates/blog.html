@@ -11,7 +11,7 @@
         {{ post_macros::page_in_list(page=page) }}
     {% endfor %}
     <nav>
-      <p>
+      <p class="pagination">
         {% if paginator.previous %}
           <a href="{{ paginator.previous }}">&laquo; Previous</a> |
         {% endif %}

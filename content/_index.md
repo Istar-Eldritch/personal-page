@@ -1,8 +1,6 @@
 +++
 title = "Home"
 
-path = "/"
-
 template = "index.html"
 
 [[extra.menu]]
@@ -14,4 +12,3 @@ template = "index.html"
 
 My name is **Ruben Paz** and I'm a **software developer** based in Cambridge, UK.
 
-There is not much to do here for now. **Sorry!**

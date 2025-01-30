@@ -1,30 +1,67 @@
+@font-face {
+  font-family: "BerkeleyMono Regular";
+  src: url("BerkeleyMono-Regular.woff2");
+}
+
+@font-face {
+  font-family: "BerkeleyMono Bold";
+  src: url("BerkeleyMono-Bold.woff2");
+}
+
 html {
   width: 100%;
   height: 100%;
   margin: 0;
-  background-color: black;
-	font-family: 'Fjalla One', sans-serif;
+  background-color: #160404;
+	font-family: 'BerkeleyMono Regular', mono;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1em;
-  font-family: 'Quantico', sans-serif;
+  font-family: 'Quantico', mono;
+  color: #df9320;
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  text-align: justify;
+  text-justify: inter-word;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-top: 1em;
 }
 
 strong {
-  font-family: 'Quantico', sans-serif;
-}
-
-body {
-  @extend html;
+  font-family: 'BerkeleyMono-Bold', mono;
 }
 
 .landing {
   @extend html;
-  color: white;
+  color: #ffbf80;
 }
 
-.nav-bar {
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.content {
+  margin-top: 2em;
+}
+
+a {
+  color: #df5020
+}
+
+.menu {
   padding: 1em;
 }
 
@@ -32,7 +69,7 @@ body {
   max-width: 40em;
 }
 
-.nav-bar > a {
+.menu-item {
   padding-right: 1em;
   float: right;
 }
@@ -41,30 +78,34 @@ body {
   float: right;
   width: 100%;
   height: 100%;
-	background: url('./keyboard_back.jpg') no-repeat center center fixed;
   background-size: cover;
-}
-
-.dark_filter {
-  float: right;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-}
-
-.full{
-  width: 100%;
-  height: 100%
-}
-
-.full-w {
-  width: 100%;
-}
-
-.full-h {
-  height: 100%;
 }
 
 .scroll {
   overflow-y: scroll;
+}
+
+.blog-title {
+  font-size: 1.2rem
+}
+
+.blog-content {
+  margin-top: 1em;
+}
+
+.blog-meta {
+  display: block;
+  color: #df5020;
+  font-size: 0.95rem;
+  margin-top: 0.25em;
+}
+
+.readmore {
+  margin-top: 0.5em;
+  font-size: 0.95;
+}
+
+.pagination {
+  margin-top: 2rem;
+  font-size: 0.95rem;
 }
