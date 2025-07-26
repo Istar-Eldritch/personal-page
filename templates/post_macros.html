@@ -21,3 +21,19 @@
         
    </article>
 {% endmacro page_in_list %}
+
+{% macro page_in_list_condensed(page) %}
+    <article class="bloglist-item" itemscope itemtype="http://schema.org/CreativeWork">
+        <header>
+            <h2 itemprop="title" class="blog-title-condensed">
+                <a itemprop="url" href="{{ page.permalink | safe }}">{{ page.title }}</a>
+            </h2>
+            <span class="blog-meta">{{ self::meta(page=page) }}</span>
+        </header>
+        {% if page.content %}
+            <div itemprop="summary" class="blog-content-condensed">
+                {{ page.content | truncate(length=150) | safe }}
+            </div>
+        {% endif %}
+    </article>
+{% endmacro page_in_list_condensed %}
