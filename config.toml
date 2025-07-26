@@ -24,3 +24,7 @@ highlight_code = true
   title = "Blog"
   path = "/blog"
 
+[[extra.menu]]
+  title = "Diary"
+  path = "/diary"
+
