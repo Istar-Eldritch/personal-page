@@ -1,10 +1,10 @@
 @font-face {
-  font-family: "BerkeleyMono Regular";
+  font-family: "BerkeleyMono Regular", mono;
   src: url("BerkeleyMono-Regular.woff2");
 }
 
 @font-face {
-  font-family: "BerkeleyMono Bold";
+  font-family: "BerkeleyMono Bold", mono;
   src: url("BerkeleyMono-Bold.woff2");
 }
 
@@ -26,7 +26,6 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1em;
-  font-family: 'Quantico', mono;
   color: #df9320;
   margin: 0;
   padding: 0;
