@@ -1,7 +1,18 @@
 {% extends "base.html" %}
 {% import "post_macros.html" as post_macros %}
 
+{% block head %}
+    {{ super() }}
+    <link rel="alternate" type="application/rss+xml" title="Journal RSS Feed" href="{{ config.base_url | safe }}/rss.xml">
+    <link rel="alternate" type="application/atom+xml" title="Journal Atom Feed" href="{{ config.base_url | safe }}/atom.xml">
+{% endblock head %}
+
 {% block content %}
+    <p class="feed-links">
+        <a href="{{ config.base_url | safe }}/journal/rss.xml">RSS Feed</a> |
+        <a href="{{ config.base_url | safe }}/journal/atom.xml">Atom Feed</a>
+    </p>
+
   <div class="content">
   {% set len = paginator.pages | length  %}
   {% if len == 0 %}
