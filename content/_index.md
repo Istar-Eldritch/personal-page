@@ -10,9 +10,9 @@ template = "index.html"
 
 # Welcome
 
-Hi, I'm **Ruben Paz**, a software architect and developer specializing in event-sourcing, distributed systems, and data consistency. I thrive on solving complex technical challenges and optimizing large-scale data processing.
+Hi, I'm **Ruben Paz**, a software architect and developer. I'm passionate about **innovating and building robust, scalable software solutions**, specializing in event-sourcing, distributed systems, and data consistency. I thrive on **diving deep into complex technical challenges, relentlessly optimizing systems, and continuously learning** to deliver impactful results.
 
-Explore my [journal](/journal) and [blog](/blog) for insights into my work and interests, or [contact me](#contact) if you need an expert in robust, scalable software solutions.
+Explore my [journal](/journal) and [blog](/blog) for insights into my work, architectural decisions, and ongoing explorations. If you're looking for an expert in building resilient and high-performance software, feel free to [contact me](#contact).
 
 ## Contact
 
