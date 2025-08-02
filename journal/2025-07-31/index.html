@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Epoch Challenges
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Epoch Challenges</h1>
+        <span class="blog-meta">
+    2025-07-31
+    </br>
+    <span>5 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today, I focused significantly on Epoch, but also dedicated time to the GFF3 implementation. I updated the documentation for the GFF3 validation rules, incorporating new code examples and a diagram, and removed outdated dependencies. I believe the documentation is now in a very good state.</p>
+<p>I also identified and resolved a small bug in the rule state manager and we closed the Pull Request that added validation for duplicated sequences. I need to spend more time considering the validation engine, and the new encoding and decoding processes for sequences.</p>
+<p>I received confirmation that there's no masking on the ENA sequences. This is excellent news because it means I should be able to utilize three bits per base for encoding, which, based on some tests I've done, will lead to a substantial reduction in storage needs, this could result in approximately a 75% reduction in size after compression. This is quite exciting, and I'm surprised no one has implemented this before, though perhaps I'm overlooking something.</p>
+<h3 id="aggregate-implementation-bug">Aggregate Implementation Bug</h3>
+<p>I encountered multiple limitations in Epoch today. The first issue was that my aggregate implementation was saving events <em>before</em> they were persisted in the aggregate store. When an event is saved, it propagates, meaning projections were being called before the aggregate's state was persisted. This led to situations where a projection might require the aggregate's state, but it didn't yet exist, resulting in errors (not null pointers, as I'm using options, but similar state-not-found errors).</p>
+<p>This is clearly not ideal. It feels as though events should be emitted <em>after</em> both the state and the events are persisted. Currently, it's all tangled together in the event store, which is problematic. As a quick fix, I'm now saving events <em>after</em> the state. However, this isn't a long-term solution. I don't even think transactions would fully resolve it, as the same issue could arise if projections are not within the same system, leading to latency-dependent bugs – the worst kind to find.</p>
+<p>I have an intuition for a proper resolution: separating emission from persistence. The persistence would be done in a transaction, and the emission would happen afterwards. This seems to be the best way forward. The state for both events and aggregate state would be persisted in an atomic operation. We could then have an index of emitted events, allowing for re-emission later if, for example, the event bus service is down. From an eventual consistency perspective, this would be acceptable because the source of truth (events and aggregate state) would be persisted.</p>
+<h3 id="time-series-creation-limitation">Time Series Creation Limitation</h3>
+<p>I found another limitation in Epoch while trying to create a time series from a couple of events using a projection. Specifically, I needed to create a time series from <code>file part uploaded</code> and <code>file deleted</code> events to track user storage usage over time. This required knowing the last event in the time series to calculate the new event based on it.</p>
+<p>My initial approach was constrained by Epoch's current implementation. To resolve this, I decided to add a new event called <code>UserFileStorageChanged</code>. This event will be emitted in both <code>file part uploaded</code> and <code>file deleted</code> scenarios, and will include the total storage used plus the delta between the old state and the new state.</p>
+<p>I also introduced two new projections:</p>
+<ol>
+<li>One to store this <code>UserFileStorageChanged</code> event directly into a time series.</li>
+<li>Another, <code>UserMetrics</code>, to calculate the current user storage usage. I can then query this projection from the aggregate for files and use it to calculate the total storage used for the new event.</li>
+</ol>
+<p>This new approach allows me to calculate both the current user storage usage and show historical changes, which is quite useful. Interestingly, this limitation actually led me to a better solution than my initial intent. However, I still believe it highlights a limitation in Epoch that I would like to address in the future.</p>
+<p>I'm starting to believe that the <code>create</code>, <code>update</code>, and <code>delete</code> constraints I have are too restrictive. The <code>enum</code> subset logic I have implemented to filter events is good, but limiting it to just these crud event categories is short-sighted. There's much more to it. Also, on the store side, when retrieving state, it should be possible to get events and then decide how to retrieve the state based on those events. This would allow for potential joins or picking state from multiple tables, as currently it's limited to a single table, which is also not ideal. The persistence side is similar. I need to generalize it more to remove many of these limitations, but for now, I'll continue with the current approach.</p>
+<h3 id="metrics-projection-creation-limitation">Metrics Projection Creation Limitation</h3>
+<p>Adding to the complexities, the new <code>UserMetrics</code> projection currently has no creation event. Its creation would logically align with user creation, but I don't currently have an aggregate for the user. This means that for metrics, there are only update events, and no creation event.</p>
+<p>Epoch currently limits updates to always have an initialized state; if there's no state in the database, it will fail. This is a significant shortcoming. I'm unsure how to work around this. My options are to either add a projection for the user (which I'm not keen on) or modify Epoch. I don't see another immediate solution right now. It's late, so I'll drop this for today. It's been a very long day.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Tackling Asynchronous Challenges
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Tackling Asynchronous Challenges</h1>
+        <span class="blog-meta">
+    2025-07-29
+    </br>
+    <span>3 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today, my primary focus was on the integration of Epoch and Catacloud, specifically around adding events. This work mainly took place in the afternoon and evening, as the morning and part of the afternoon were dedicated to childcare. I ended up working until 3 AM.</p>
+<h3 id="file-and-job-linking-in-epoc">File and Job Linking in Epoc</h3>
+<p>The integration with Epoch and Catacloud revolved around linking files and jobs. I implemented two types of events: <code>link file</code> and <code>unlink file</code>. When files are removed from a job, an <code>unlink</code> command is issued, and when files are added, a <code>link</code> command is issued.</p>
+<h3 id="addressing-asynchronous-event-propagation">Addressing Asynchronous Event Propagation</h3>
+<p>I encountered an asynchronous problem where the <code>job file link</code> (or <code>job file</code> projection) was not immediately updated after events were sent to the job aggregate. This meant the preview displayed old files, which was frustrating. To resolve this temporarily, I switched the event bus from the Postgres event bus to an in-memory event bus. This ensures instantaneous propagation, projecting the changes as soon as the event is emitted, without the delay of going through Postgres.</p>
+<h3 id="lessons-from-iris-local-handlers-for-event-buses">Lessons from Iris: Local Handlers for Event Buses</h3>
+<p>This issue reminded me of a similar problem I solved with Iris, a library I developed a few years ago for event-driven systems (prior to adopting event sourcing). In Iris, if the event emitter and subscriber were in the same process, the handler would be called directly in addition to emitting the event to the bus for other subscribers. This significantly reduced latency. I believe a similar functionality will need to be added to the Epoch Postgres event bus, and potentially to future Kafka or RabbitMQ event buses, to reduce latency for local subscribers. While this isn't ideal, as files attached to a job feel like part of the job projection, it resolves the immediate problem.</p>
+<h3 id="enhancing-epoch-s-persistence-layer">Enhancing Epoch's Persistence Layer</h3>
+<p>Another area for improvement in Epoch is its persistence layer. Currently, the <code>get</code> method has a hard-coded query, and the <code>persist</code> method only handles single entity saves. Ideally, the <code>persist</code> interface should allow saving multiple entities simultaneously. For instance, in our scenario, we have a <code>job</code> table and a <code>job_file</code> intermediary table. The <code>job</code> aggregate should be able to persist both the <code>job</code> entity and multiple <code>job_file</code> entities at the same time, logically representing a job with an array of files. This improvement to the Epoch library is necessary to better support these types of projections.</p>
+<h3 id="progress-and-future-file-projections-and-billing">Progress and Future: File Projections and Billing</h3>
+<p>Despite these challenges, file linking is now working, and I've resolved several other related issues in both the UI and backend. I've also started migrating files to projections. This is a crucial step that will enable me to measure the volume of storage a specific user is consuming, which will be used for billing purposes (e.g., gigabytes per hour). My next steps involve adding an aggregate for this and then a projection to calculate "gigabytes per unit of time" as the basis for charging.</p>
+<p>This was a productive day, and I'm making steady progress towards the billing infrastructure.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>
