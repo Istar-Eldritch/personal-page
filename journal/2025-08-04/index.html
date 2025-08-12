@@ -1,0 +1,78 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Epoch Changes, Event Sourcing, and Future Plans
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Epoch Changes, Event Sourcing, and Future Plans</h1>
+        <span class="blog-meta">
+    2025-08-04
+    </br>
+    <span>2 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>I've implemented several changes to Epoch, primarily addressing a locking issue and refining versioning within the event sourcing system.</p>
+<h2 id="resolving-locking-issues">Resolving Locking Issues</h2>
+<p>Previously, iterating through subscribers caused mutex locking, likely due to multiple concurrent access attempts. To mitigate this, I introduced a channel that acts as a buffer. Messages now queue up and are processed in batches of ten, rather than all at once. This change has successfully addressed the locking problem.</p>
+<h2 id="event-sourcing-versioning-challenges">Event Sourcing Versioning Challenges</h2>
+<p>A significant challenge arose with aggregate versions not incrementing correctly. The root cause was my oversight in not hydrating specific events for aggregates, as they didn't appear to alter the state. However, this led to versioning conflicts. Epoch, by design, does not automatically increment the aggregate's version when persisting a command; instead, it expects the hydration process within the event handler to manage this.</p>
+<p>Consequently, if the aggregate's version isn't incremented in the event handler, subsequent events for the same aggregate are saved with an outdated version, leading to "duplicate key" errors and conflicts. While manually incrementing the version in each event handler resolves this, it feels redundant. I'm exploring ways to make Epoch less error-prone, perhaps by adding a <code>set_version</code> or <code>increase_version</code> method to the state trait. This would allow Epoch to manage versioning automatically during hydration, similar to how update timestamps could also be handled.</p>
+<h2 id="current-progress-and-next-steps">Current Progress and Next Steps</h2>
+<p>Despite these complexities, the system is now largely functional. The saga for computing storage usage is working well, successfully increasing storage size based on events. However, it's not yet handling deletions correctly. This appears to be due to remnants of older logic that aren't fully integrated with the new event-sourcing methodology, requiring further cleanup.</p>
+<p>Overall, I'm relieved to have resolved the major impediments. All necessary metrics for building are now operational. My immediate focus shifts to creating dashboards: one for users to visualize their costs and breakdowns, and another for administrators. I also need to implement the machine deployment automation system. I plan to begin with the user dashboard tomorrow, aiming to have all dashboards ready by Wednesday. This will necessitate redeploying the application, as the deployment was previously interrupted. Achieving this will put us in a strong position to meet the end-of-month production deadline, which is rapidly approaching.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Billing UI, Event Sourcing, and Epoch Refinements
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Billing UI, Event Sourcing, and Epoch Refinements</h1>
+        <span class="blog-meta">
+    2025-08-07
+    </br>
+    <span>3 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today, my main focus was on the Catacloud platform, specifically developing the billing UI and implementing the billing aggregate.</p>
+<h2 id="billing-system-development">Billing System Development</h2>
+<p>I've implemented the billing aggregate, which tracks operational metrics like total storage used by an organization and the amount of gigabyte-hours consumed. The system now has a saga that processes these metrics. I've also developed the UI to display daily aggregations, providing good tracking for gigabytes per hour and execution times.</p>
+<p>Looking ahead, I plan to extend this system to support multiple services, each with specific pricing per customer, allowing for volume-based accounts and discounts. This design also accounts for future pricing changes without necessarily affecting existing customers, providing flexibility for potential migrations to new pricing models.</p>
+<h2 id="file-upload-and-event-versioning-issues">File Upload and Event Versioning Issues</h2>
+<p>I've started investigating why file uploads are failing, particularly larger files, when they go through the event system. It appears to be a concurrency issue. When multiple file parts are uploaded simultaneously, events are sometimes created with the same version in the database, leading to "duplicate key" errors.</p>
+<p>The root cause seems to be the order of persistence: currently, the aggregate state is persisted before the events. This is problematic because if state persistence fails, events might already be in the database, leading to an outdated state when reconstructed. Ideally, events should be persisted first, followed by the aggregate state, preferably within a transaction. This ensures that the state is always up-to-date with the latest events.</p>
+<p>To optimize performance, we might need to implement a snapshotting mechanism for the aggregate state, so we don't have to re-aggregate all events every time. Caching frequently retrieved states in memory could also significantly improve performance.</p>
+<h2 id="epoch-improvements-for-event-hydration">Epoch Improvements for Event Hydration</h2>
+<p>I've begun making changes to Epoch to improve how events are read from the event store. Instead of reading the entire event stream, I want to read only new events since the last known version. This led me down a rabbit hole of modifying Epoch's traits to support streaming events directly into the rehydration function.</p>
+<p>Working with event streams (e.g., pulling events from Postgres as a stream) would be significantly more efficient, especially for rehydrating new projections from the beginning of time, as it avoids building the entire event store in memory. However, this introduces complexities with error propagation when reading from the stream, as the aggregate needs to handle potential errors during event retrieval.</p>
+<p>The ultimate goal is to make all I/O asynchronous, allowing for better concurrency and multi-threading, which would be a significant improvement. The question remains whether to continue with these fundamental changes to Epoch now, given that the immediate problem is the file upload concurrency issue. I need to re-evaluate if the file upload issue is indeed a race condition that these changes would help resolve.</p>
+<h2 id="atomic-operations-and-transactions">Atomic Operations and Transactions</h2>
+<p>The core problem boils down to ensuring atomic operations when persisting events and state. If the state persistence fails, the events should not be committed, or the system needs a robust way to recover. While a database transaction would be the ideal solution, I need to explore how to achieve this atomicity within Epoch without necessarily relying on explicit database transactions if they are not readily available or suitable. This requires careful consideration of how to handle state and event consistency.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

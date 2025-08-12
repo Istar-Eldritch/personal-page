@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  A Day of Tech Tinkering and Deep Dives
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">A Day of Tech Tinkering and Deep Dives</h1>
+        <span class="blog-meta">
+    2025-07-25
+    </br>
+    <span>3 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today was a bit of a whirlwind, starting with me waking up late – still not entirely sure what happened there! Despite the slow start, I managed to dive into a few interesting projects.</p>
+<p>My MNT reform's Wi-Fi coverage has been bothering me, so I spent some time looking into antennas. I've got an external antenna coming, which means I'll need to drill a hole in one of the side panels. The hope is that by combining an internal antenna with this new external one, I'll finally get the coverage I need.</p>
+<p>Then there's the MNT reform's unbalanced batteries. It's been frustrating having to stay constantly connected because one battery is full while the others are empty. Because one of the batteries is full, the charge controller won't charge the remaining ones. And when I disconnect power, the system to shuts down soon after. I've ordered a charger that should arrive early next week, which will hopefully allow me to charge all the bateries to the same level.</p>
+<p>My thoughts also drifted to UXN, the VM. I'm starting to seriously consider using it as the embedded computer system within a programming-puzzle video game I'm conceptualizing. The idea is that players would program in UXN to solve in-game challenges. I was exploring different concepts, like changing the file system from a device-based one to a block system, perhaps even borrowing ideas from Forth. It was a bit of a rabbit hole, but an interesting one.</p>
+<p>Work for EBI also took up a good chunk of my day. I pushed some fixes to a GFF3 implementation PR I had open. The main change was shifting how directives are handled: instead of a general list, annotations now have specific directives tied to them, with separate directives for the entire GFF3 file. It was a bigger change than I anticipated, requiring some refactoring of the directive's location.</p>
+<p>I also ran a test on optimizing FASTA file reads. My initial thought was to trim down the base representation to 2 bits per base, but then I remembered the character for unrecognized bases, which forces a 3-bit representation. Further research led me to "masking," which I need to look into more, as it might push the bit count to 4. This would significantly reduce our anticipated 75% size reduction to a mere 50%, which isn't as extraordinary, but still good given the terabytes of FASTA files we have at EBI. The streaming support is crucial for these massive files, especially when we need to transform them on the fly without loading the entire file into memory.</p>
+<p>Finally, my afternoon was dedicated to Epoch, the event-sourcing library I'm building for Catallactical. I finally added the <code>aggregate</code> trait, and it seems to be working well! I also implemented support for optimistic concurrency and conflict resolution. Tomorrow, I'll be writing an example using this new trait, and then I'll start integrating it into the Catacloud system – the main reason I'm developing Epoch.</p>
+<p>All in all, a productive day filled with technical challenges and progress. Let's see what tomorrow brings!</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

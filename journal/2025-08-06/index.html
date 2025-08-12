@@ -1,0 +1,75 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Event Bus Refinements and Aggregate Principles
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Event Bus Refinements and Aggregate Principles</h1>
+        <span class="blog-meta">
+    2025-08-06
+    </br>
+    <span>2 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>I made a significant mistake while working on the in-memory event bus. I added queues unnecessarily, even though there aren't distinct channels per subscriber. I'm calling subscribers one by one with the event, so a simple list of subscribers is more efficient.</p>
+<p>Initially, I had a mutex locking the entire array of subscribers. This caused timeouts because when an event was emitted (e.g., by a saga), it would lock the subscriber array. If the saga then emitted more events, these would attempt to re-access the locked array, leading to a deadlock. Events would pile up in the channel's buffer.</p>
+<p>The actual solution was to either remove the mutex entirely (as it wasn't truly needed) or, if dynamic subscription/unsubscription was required, implement a read-write lock. A read-write lock allows multiple parallel reads but only one write at a time, which solves the problem with the subscriber array. I've implemented a read-write lock for now, as it was easier than completely removing the existing mechanism, even though dynamic subscription isn't strictly necessary.</p>
+<p>This solution has resolved the immediate problem. In the future, I might remove the subscriber array entirely and use a channel with multiple subscribers reacting in parallel to events, potentially each in its own task.</p>
+<p>One crucial realization from this experience is that an aggregate should <em>never</em> depend on a projection. Aggregates should not read state from a projection to hydrate or create new commands, as that state might be outdated, leading to inconsistencies. Ideally, the command sent to the aggregate should contain all necessary information and rely only on the aggregate's own state, without internal links to projections.</p>
+<p>I'm considering making command handlers synchronous to enforce this, which would effectively lock the application unless threads or other parallel processing mechanisms are used for IO. Currently, aggregate command handlers are asynchronous because I initially wanted to perform IO to call projections from them, which I now believe is a bad idea. I may event add a semaphore system in the future in epoch so this behavior is enforced.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

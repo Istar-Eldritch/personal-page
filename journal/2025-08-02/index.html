@@ -1,0 +1,79 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Catacloud Refactor and Garden Adventures
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Catacloud Refactor and Garden Adventures</h1>
+        <span class="blog-meta">
+    2025-08-02
+    </br>
+    <span>5 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>This morning, I focused on Catacloud, specifically on refactoring due to the Epoch changes from yesterday. It's now much cleaner. I also added organizations, which required another significant refactor. I haven't fully linked everything through the organization yet, and I'm quite tired, but the organization feature is now implemented in Catacloud. The website is working, though it's still using links through the user. Once I remove those, I'll have to change the queries to join through the organization relationship. I haven't implemented sagas yet, but that's what I plan to do tomorrow, along with finishing the organization integration.</p>
+<p>Because of the organization changes, I also had to modify all the conventions, and I'm unsure if it will work with Supabase, our current database provider. We use their authentication tooling. Locally, I have my own login tooling, and I could deploy it with that, but in theory, it should work because I'm using the same functions as Supabase on the database side. It might not, though.</p>
+<p>I also need to create endpoints for creating organizations and add a new login flow for users. Ideally, as admins, we would add an organization, or perhaps allow users to register and create the organization at that point. If users register and create the organization, that user would become the administrator and wouldn't be able to do anything until a payment system is integrated. I guess that flow, where users register themselves, should work.</p>
+<p>The other option is that we create the organizations ourselves, and then when a user tries to log in, they would add the company's domain, for example, and then they could recognize the domain and log in. We'd have to add something in the organization's dashboard to enable that functionality. Another option is that we create the organization and send an invite to the first administrator, who can then invite other users. When they accept the invite, they set up a password and register. I think I need to implement this flow before going to production, so at least we can invite someone to join. That's what I've been thinking about regarding authentication.</p>
+<h2 id="family-time-and-coffee">Family Time and Coffee</h2>
+<p>The rest of the day, from 2 PM to probably 8 or 9 PM, I spent with the kid. We went to a social club that had an event with a company that brings animals for interaction. It was actually better than I expected. We had a bunch of friendly animals the kids could play with, touch, and pet. For some reason, I also enjoyed it; I'm not sure why, but it was a good break.</p>
+<p>This morning, I had a coffee from Ground Hill Roasters. It's a very good coffee, I believe it's a Colombian. I'd have to check. It's also a fermented coffee, which I guess is the thing. I brewed it for espresso, and what really impressed me was that it truly kept its character in the espresso itself. It's quite an acidic coffee, but good. I haven't dialed it in perfectly yet; I need to grind it a bit finer, but it was a very interesting coffee. The notes, I think, mention something like "winey" on the front. I'm not sure if I got the winey part itself, but it did have a bit of a reminiscent of an alcoholic beverage. Yeah, very fruity, like red fruits, sort of like an overripe blackberry from the bush, almost fermenting on the bush—that's the feeling I got from it. Very nice.</p>
+<h2 id="garden-work-and-future-plans">Garden Work and Future Plans</h2>
+<p>Then we came home, and I basically cleaned the garden. We cut the grass on the lawn. I don't have an electric mower; I have one of these reel mowers. It's a very old design with a reel of blades. It's really quiet. If you keep on top of a lawn and don't let it go too wild, it's so easy and actually quite fast. I've used other mowers before, and this is so much better. They are super quiet, the finish is super nice, and you can cut really close to the ground, so you have very short grass, which looks really good. I really, really like it. You have to pass it maybe once a week or so, and that's fantastic. Also, there's no gas, no electricity, no cables, and no batteries to charge. Just take it out, pass it, it's great. I should do some maintenance on it though; I need to oil it, which I haven't done yet, and I've been using it for months. They are the best, and they are also quite cheap. Sometimes, old technology is better.</p>
+<p>I also have to start thinking what I'm going to plant. The tomatoes are starting to ripen now, so the raised bed will probably be free in a month. Then I also want to expand. I have some flower beds that I think I will use for greens now. I have to start thinking what I'm going to plant on them.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>
