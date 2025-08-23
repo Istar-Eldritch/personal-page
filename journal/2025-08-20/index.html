@@ -1,0 +1,80 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Architectural Diagrams, Machine Lifecycle, and Home Lab Setup
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Architectural Diagrams, Machine Lifecycle, and Home Lab Setup</h1>
+        <span class="blog-meta">
+    2025-08-20
+    </br>
+    <span>3 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today's focus involved architectural work for Catacloud, implementing a machine lifecycle system, and setting up my home lab.</p>
+<h2 id="architectural-diagrams-and-documentation">Architectural Diagrams and Documentation</h2>
+<p>I spent time on architectural diagrams for Catacloud, creating some decent documentation for the job scheduling system. There are a few areas that could be improved but is good enough. I'm content with its current design and have begun the implementation phase. This will take some time, but I aim to finish it within the next couple of days for deployment and testing.</p>
+<p>Regarding work, I reviewed and finalized the documentation for the validation engine, making some minor code changes to align with it. I also added basic automatic validation for duplicate identifiers. I started looking into Apache Airflow but was quite drained by midday.</p>
+<h2 id="remote-workstation-and-llm-exploration">Remote Workstation and LLM Exploration</h2>
+<p>My remote workstation setup continues to work well. I was able to power on my machine remotely from the office using Home Assistant and run queries on the LLM. This remote access is highly convenient. The script I developed yesterday for power management is working as intended. Home Assistant keeps a history, showing how long the machine was online. Over the last 24h, it was on for approximately seven to eight hours across different segments. This automated power management is great as it prevents unnecessary electricity consumption if I forget to turn the workstation off.</p>
+<p>I'm impressed with the gpt-oss:20b model; it meets all my needs. I also have the gemma3:27b model, which excels at image recognition. Today, I experimented by giving gpt-oss:20b a command to create a prompt for extracting styles from an image. I then used Gemma 3 with that prompt and several images, and it successfully extracted various stylings. I particularly appreciate how it provides insights into its identification process, often revealing influences that I wouldn't have known otherwise. This learning aspect is very cool and useful.</p>
+<h2 id="mnt-reform-cleaning-and-future-home-lab-plans">MNT Reform Cleaning and Future Home Lab Plans</h2>
+<p>I cleaned my MNT Reform today. I noticed a small, unmarked key with three dots that I don't know the purpose of, but I assume it can be mapped to anything. My daughter joined me in taking off and cleaning all the keys and the board underneath, then putting them back. It was a good practice for both of us, especially for her learning letters.</p>
+<p>In the next few days, I plan to set up my Raspberry Pi 5 in my home lab rack to act as a reverse proxy, moving all existing proxies from TrueNAS to it. I will also add a local DNS server to ensure that traffic for my local servers (like my music server) stays within the local network, as currently it might be leaving the network unnecessarily. I might also use the Raspberry Pi as a bastion host. I've been considering this for a while. The Raspberry Pi 5, with its 8GB of RAM, is capable of running various applications, I'm thinking bookmarks, my personal site the proxy server and dns and maybe some other bits and bobs as they arrive.</p>
+<p>Another area I want to explore is adding a headless Steam installation to my desktop environment. This would allow me to stream and play games from other computers, as my MNT Reform (ARM64) isn't ideal for gaming.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

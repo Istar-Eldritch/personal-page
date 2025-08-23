@@ -1,0 +1,84 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  GFF3 Implementation: Validation and Transformation
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">GFF3 Implementation: Validation and Transformation</h1>
+        <span class="blog-meta">
+    2025-07-30
+    </br>
+    <span>4 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today, I continued working on the EBI GFF3 implementation, focusing on adding validations for out-of-order entries. This is crucial when transforming annotations from GFF3 to EMBL or other flat files, as the EMBL format doesn't support multiple entries with the same sequence identifier.</p>
+<p>In GFF3, our streaming implementation allows processing files without loading the entire file into memory. The GFF3 resolution directive (###) can define that all previous entries have no dependencies, meaning these entries can be validated in isolation. However, this doesn't prevent entries further down the file from belonging to the same sequence ID.</p>
+<p>When transforming GFF3 to EMBL, if such a directive appears, we might create an annotation and then continue with the same sequence ID, issuing it as a new annotation. This would result in a new EMBL entry with the same sequence ID, which is not allowed by the ENA databases.</p>
+<p>To address this, we currently merge annotations if the previous one has the same sequence ID. However, a challenge arises if sequence ID 1 appears, followed by sequence ID 2, and then sequence ID 1 again. This indicates that features in the GFF3 file might not be completely in order, which is valid according to the spec but problematic for EMBL transformation.</p>
+<p>My recent work involved adding an annotation to address this. A new rule, enforceable via the previously developed rule system, allows filtering or validating GFF3 files during completion, preventing these issues.</p>
+<h2 id="new-validation-engine-granularity-and-semantic-validations">New Validation Engine: Granularity and Semantic Validations</h2>
+<p>I've also begun working on a new validation engine, currently in the definition phase. This engine provides an abstraction on top of existing rule sets, enabling validations at different levels of granularity.</p>
+<p>For example, validations can now operate at the line level, requiring multiple lines, or even an entire file. We're achieving this by accumulating state internally within the validations as we read the file and call them with annotations. This allows validations to build graphs or other data structures for recognition and validation during the streaming process.</p>
+<p>This is particularly important as we'll be adding semantic validations that consider biological features, which often depend on other features within the file. Currently, our validations are purely syntactic, ensuring the GFF3 file is valid and convertible to an EMBL file. The new process will expand this, with these new validations regulated by rule sets, allowing them to be enabled or disabled, or even soft-disabled (issuing a warning without halting the process). This is currently a theoretical focus, with implementation to follow soon.</p>
+<h2 id="epoch-to-catacloud-integration-aggregations-and-projections-for-files">Epoch to Catacloud Integration: Aggregations and Projections for Files</h2>
+<p>In the evening, I'll be working on adding Epoch to Catacloud, specifically focusing on aggregations and projections for files. In Catacloud, we have a concept of files, file uploads, and file parts. This is because we handle large point cloud files (multiple gigabytes) and want to allow users to upload them in chunks, re-uploading only failed parts.</p>
+<p>My implementation involves a file aggregate, with file uploads and file parts as projections of that aggregate. The aggregate dictates the logic for persisting the file, currently using an S3 abstraction (though not directly S3). It propagates events to maintain the state of files and parts being uploaded, tracking missing parts to enable partial retries and resume of file uploads.</p>
+<p>I've refactored much of this, but haven't tested it yet, and the seed is currently failing. The seed previously hardcoded files for testing, but now files need to be generated dynamically. This presents a challenge, as I was directly pushing files to Minio and creating entities in the database. Now, I need to create an event that initiates an upload, and then another event to put the file in Minio.</p>
+<p>This event-driven approach can be a bit involved, making state representation for testing more complex. While I could hardcode the state, it wouldn't be representative for tests. The goal of the seed is to populate the database with meaningful data for testing.</p>
+<p>If this goes well, I anticipate completing this tomorrow and then focusing more on projections for billing.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

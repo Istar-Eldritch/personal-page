@@ -1,0 +1,84 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Machine Life Cycle on Catacloud
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Machine Life Cycle on Catacloud</h1>
+        <span class="blog-meta">
+    2025-08-11
+    </br>
+    <span>3 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today's focus is on implementing the machine life cycle for Catacloud. This new system will monitor job states, provisioning new machines for jobs, and then de-provisioning the machines once the jobs are complete.</p>
+<h2 id="new-entities-machine-type-and-machine-instance">New Entities: Machine Type and Machine Instance</h2>
+<p>To support this, we are introducing new entities:</p>
+<ul>
+<li><strong>Machine Type</strong>: This entity will describe the specifications of a machine. It will serve as a mapping that the machine life cycle uses to identify and provision the correct machine, initially focusing on Hetzner Cloud, but with future potential for other cloud providers, local docker instances or even perpetual baremetal running machines.</li>
+<li><strong>Organization and Machine Description (intermediary table)</strong>: This table will link organizations to the machine types they have access to.</li>
+<li><strong>Machine Instance</strong>: The machine life cycle will create a new machine instance when jobs are in a pending state. It will track the job's progress and then turn off the machine instance when the job finishes.</li>
+</ul>
+<h2 id="job-scheduling-and-machine-types">Job Scheduling and Machine Types</h2>
+<p>Jobs will be scheduled to specific machine types through their job configuration (previously referred to as pipeline configuration or job type). This means that jobs with a particular configuration will be defined to run on a specific machine type. This binding is crucial for scenarios where certain job types might require specific resources, such as GPUs. When defining a new job configuration, users will select from the machine types their organization has access to.</p>
+<h2 id="machine-life-cycle-logic-and-resource-management">Machine Life Cycle Logic and Resource Management</h2>
+<p>The machine life cycle will be bound to an organization's machine type configuration. This configuration will define the maximum amount of resources an organization can schedule, such as the maximum number of simultaneous jobs or the maximum pool size of machines. For example, if an organization only wants to run two jobs simultaneously, the maximum pool size will be two machines. If they only have one, jobs will be queued one by one.</p>
+<p>I may need to implement multiple algorithms for the machine life cycle to decide job parallelism. The goal will be to optimize resource utilization, potentially by reducing costs (scheduling the fewest machines possible) or by prioritizing speed (creating more machines for faster completion). This will involve considering factors like minimum machine run times (e.g., a 30-minute job on a machine with a one-hour minimum run time).</p>
+<h2 id="architectural-considerations">Architectural Considerations</h2>
+<p>The machine life cycle will be implemented as a saga. The machine type and machine instance will be aggregates.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

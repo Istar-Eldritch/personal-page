@@ -1,0 +1,81 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  MNT Reform Kernel Compilation, Local AI Inference, and Linux Ecosystem Exploration
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">MNT Reform Kernel Compilation, Local AI Inference, and Linux Ecosystem Exploration</h1>
+        <span class="blog-meta">
+    2025-08-14
+    </br>
+    <span>3 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>This entry provides an update on today's efforts, primarily focused on recompiling my MNT Reform kernel and exploring local AI inference solutions.</p>
+<h2 id="mnt-reform-kernel-and-npu">MNT Reform Kernel and NPU</h2>
+<p>I spent a significant amount of time attempting to recompile my MNT Reform kernel to enable the Rockchip rknpu kernel module, which would allow me to access the Neural Processing Unit (NPU). Initially, I tried compiling the kernel and patching it with the official Rockchip driver, but I soon realized that this driver relies on a proprietary SDK that isn't publicly available, making compilation impossible.</p>
+<p>Further investigation revealed that the mainline Linux kernel now directly supports the Rockchip NPU. However, the MNT Reform's current kernel does not have this module enabled. My next step is to recompile the kernel with the module enabled.</p>
+<p>The challenge lies in installing a custom kernel on the MNT Reform. Unlike systems with traditional BIOS, the MNT Reform uses U-Boot, which I'm not familiar with. I'm hesitant to proceed without a clear understanding, as I use this laptop daily and cannot afford to render it unbootable. While the MNT Reform does have a serial port for U-Boot access, requiring a connection from another computer, it's a recovery method I'd prefer to avoid if possible. I'm confident I'll figure it out eventually, but the risk of breaking my primary machine is a significant concern.</p>
+<p>Furthermore, I'm questioning the immediate benefit of having the NPU fully functional.</p>
+<h2 id="local-ai-inference-workstation">Local AI Inference Workstation</h2>
+<p>My exploration into the NPU brought me to the realization that I might achieve more practical results by leveraging a more powerful local environment. I'm now considering setting up my desktop computer as a dedicated local inference and workstation for running capable AI models.</p>
+<p>This workstation could also be used for point cloud analysis. A key challenge will be managing its power consumption, as I won't be using it constantly. I need to devise a system to turn it on and off on demand. My current idea is to implement a mechanism where it automatically shuts down after a period of inactivity (e.g., 30 minutes to an hour). Powering it on could potentially be done via Wake-on-LAN, and a system service could monitor activity (e.g., CPU or GPU load) to trigger automatic shutdown when idling. I might be able to integrate this with existing hibernation systems.</p>
+<p>This approach is particularly appealing given the high cost of cloud-based AI solutions. While a local solution might require fine-tuning and living with certain limitations, it offers significant cost savings.</p>
+<h2 id="linux-ecosystem-and-learning">Linux Ecosystem and Learning</h2>
+<p>This whole process has highlighted how much more I have to learn about the Linux ecosystem. I'm contemplating revisiting "Linux From Scratch" to gain a deeper understanding of building a Linux system from bare metal. This would provide valuable insights into how various system components interact. There's a vast amount to learn, and time is always a constraint.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

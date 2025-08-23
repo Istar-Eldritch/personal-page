@@ -1,0 +1,97 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Key Management, Hardware Upgrades, and Remote Access Developments
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Key Management, Hardware Upgrades, and Remote Access Developments</h1>
+        <span class="blog-meta">
+    2025-08-15
+    </br>
+    <span>4 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today was primarily focused on enhancing my security setup, acquiring new hardware for a remote workstation, and improving file access.</p>
+<h2 id="key-management-overhaul">Key Management Overhaul</h2>
+<p>I've significantly upgraded my key management system. I generated a new offline PGP key that never expires. This master key is used to generate subkeys for authentication, signing, and encryption. I now have two physical YubiKeys:</p>
+<ul>
+<li><strong>Tiny YubiKey:</strong> This one fits discreetly into a USB port and is currently attached to my MNT Reform. It holds three new subkeys generated from the offline master key.</li>
+<li><strong>Keychain YubiKey:</strong> This is my older YubiKey, which I carry on my keychain and has NFC capabilities for use with my phone. It currently holds the old subkeys. My intention is to gradually phase out these old keys, though I could use my backup key to manage them.</li>
+</ul>
+<p>I also set up a similar key system for my partner, creating a new PGP key for her. This involves one persistent backup key stored safely offline and subkeys loaded onto an NFC-enabled YubiKey for her authentication needs.</p>
+<h2 id="password-management">Password Management</h2>
+<p>On the topic of password management, I created a shared vault with my partner using GNU <code>pass</code>. The vault is structured with three folders:</p>
+<ul>
+<li><strong>My Folder:</strong> Only my PGP key can decrypt passwords stored here.</li>
+<li><strong>Shared Folder:</strong> Both my partner's key and mine can decrypt passwords in this folder.</li>
+<li><strong>Partner's Folder:</strong> Only my partner's key can decrypt passwords here.</li>
+</ul>
+<p>This system provides a simple, self-hosted solution for secure password sharing. I plan to document this process thoroughly, including details on extending subkey expiry dates with the main offline key and the storage location of the offline keys, so my partner can manage it independently.</p>
+<h2 id="hardware-upgrade-amd-rx-7900-xtx-remote-workstation">Hardware Upgrade: AMD RX 7900 XTX &amp; Remote Workstation</h2>
+<p>I've invested in new hardware: an AMD RX 7900 XTX graphics card. This card, a top-tier consumer model from a few years ago, boasts 24 GB of VRAM. My primary reason for this purchase is to leverage it for machine learning tasks, utilizing AMD's ROCm technology, which is comparable to Nvidia's CUDA but at a significantly lower cost. I bought it second-hand, hoping it fits into my current PC case.</p>
+<p>To accommodate the new GPU, I'm upgrading my system's power supply and adding new fans with dust filters to improve airflow and reduce dust accumulation. My goal is to transform this desktop into a dedicated workload machine and remote workstation. It will remain off until needed for heavy tasks like compiling, running jobs, or potentially hosting self-contained Llama-based models.</p>
+<p>I'm exploring ways to manage its power consumption, ideally powering it on via Wake-on-LAN and having it automatically shut down after a period of inactivity (e.g., 30-60 minutes). This might require developing a custom software solution for power management and remote access.</p>
+<h2 id="nas-and-remote-file-access">NAS and Remote File Access</h2>
+<p>I've set up a new volume on my TrueNAS for general files, including documentation. Currently, I can mount this file system on my computer and transfer files directly. However, I still need a secure and efficient way to access these files remotely from outside my network.</p>
+<p>I'm considering two options for a bastion host:</p>
+<ol>
+<li><strong>Raspberry Pi:</strong> A small Raspberry Pi (perhaps a Pi Zero 2) could serve as a low-power SSH gateway for network access and file transfers via SFTP. The main concern is its limited memory potentially leading to slow transfers.</li>
+<li><strong>TrueNAS VM:</strong> Running a virtual machine (e.g., with 1GB RAM) directly on the TrueNAS would likely offer better transfer speeds due to direct access to the hard drives. I need to research the best operating system for this purpose.</li>
+</ol>
+<p>My goal is to restore my previous system of synchronizing markdown files (like my todo lists and documentation) to my phone, ensuring I can access and update them easily.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

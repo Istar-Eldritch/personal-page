@@ -1,0 +1,78 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  VPN Script, Recording Tool, and Terminal Theme Improvements
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">VPN Script, Recording Tool, and Terminal Theme Improvements</h1>
+        <span class="blog-meta">
+    2025-08-16
+    </br>
+    <span>2 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today was not a particularly productive work day, primarily due to a rough night's sleep which made it difficult to focus. Despite this, I managed to complete a few simple but useful tasks.</p>
+<h2 id="dotfile-enhancements">Dotfile Enhancements</h2>
+<p>I added a new script to my dotfiles that provides a visual indicator when I'm connected to a VPN. This helps me quickly confirm my connection status.</p>
+<h3 id="enhanced-recording-script">Enhanced Recording Script</h3>
+<p>This new recording script automates the process of recording audio and then transcribing it. It saves the output directly in the terminal's current directory. A key feature of this script is its ability to capture all system audio, including both microphone input and any other audio playing on the system. This is particularly useful for recording meetings, as it ensures all audio is captured. While my current transcription model is designed for a single speaker, I am considering integrating a model that can differentiate between multiple speakers in the future. This would be incredibly valuable for accurately tracking meeting discussions, allowing me to search through transcripts later.</p>
+<p>I've observed that while initial transcripts might not be perfectly accurate, their quality improves significantly when provided with context. For example, if you're maintaining meeting records on a consistent theme, using an LLM to correct the transcript based on prior context can greatly improve its accuracy in identifying correct words. This approach requires some initial manual curation for the first few entries, but subsequent curations become much easier as the assistant learns to identify and correct common errors, a method I've found effective in my personal journaling.</p>
+<h2 id="terminal-theme-improvements">Terminal Theme Improvements</h2>
+<p>I also dedicated some time to improving my terminal themes. I made minor adjustments to the dark theme for my editor (Neovim), but my primary focus was on adapting the colors of my terminal theme to adhere to standard conventions for terminal colors. This has resulted in much better contrast, making text and elements significantly easier to read. I've noticed that some tools may still output colors that fall outside the 16-color palette of my current theme, but this is a minor issue for now.</p>
+<p>That concludes today's updates. Looking forward to more progress tomorrow.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

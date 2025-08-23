@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Tooling Improvements, Catacloud Progress, and Reflections
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Tooling Improvements, Catacloud Progress, and Reflections</h1>
+        <span class="blog-meta">
+    2025-08-12
+    </br>
+    <span>5 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today was a mix of tooling improvements, work on Catacloud, and some long-term personal reflections.</p>
+<h2 id="editor-and-terminal-theme-enhancements">Editor and Terminal Theme Enhancements</h2>
+<p>I've been working on a very simple light theme for my Neovim setup, which seems to be working fine. I also modified my Neovim configurations to dynamically pick either the light or dark theme based on the terminal's theme. This is quite useful because my workspace in the mornings has a lot of light and reflections on the screen, making a dark background hard to read. A light background significantly improves readability in such conditions.</p>
+<p>My light terminal theme, derived from the Neovim theme, isn't perfect and needs some improvements, which I'll address at some point. I also spent time restructuring my dot files to be cleaner, so I no longer have to manually link all of them at once. The themes now seem stable, though the terminal themes still require more work.</p>
+<h2 id="recording-system-transition">Recording System Transition</h2>
+<p>I'm also testing a new recording system called "Asak," which is a terminal tool, replacing the GNOME recorder. This tool directly creates a WAV file without external dependencies, saving me processing time as it can be directly used by Whisper.</p>
+<h2 id="job-processing-infrastructure-and-catacloud-progress">Job Processing Infrastructure and Catacloud Progress</h2>
+<p>Yesterday, I refined the job processing infrastructure proposal, which outlines new aggregates to track machine states for commissioning and decommissioning.</p>
+<p>For Catacloud, I plan to implement the machine provisioning system. I want to support different backends for provisioning depending on the machine type. This might involve a trait on the machine type itself that implements a <code>provision</code> method. One of the backends will be Hetzner, and I'll also add a local development backend for testing, likely using Docker to create new machines. This part is going to be complex.</p>
+<p>Once the job processing pipeline and machine provisioning infrastructure are implemented, I'll need to integrate some of these events with the billing system. We want to charge based on how long machines are turned on, not just job duration. This will require focusing more on billing again.</p>
+<p>I'm currently stuck on the implementation for Catacloud. Apart from cleaning up designs and reviewing them, I've implemented the aggregates and part of the saga, but it's not yet working. I hope to have it functional by the end of the week. I also need to update the supervisor as the job pulling mechanism will change. I'm considering adding a separate scheduling saga to allocate jobs to machines, distinct from the provisioning saga, to manage the complexity of machine pools and states.</p>
+<h2 id="firefox-extension-and-debugging-challenges">Firefox Extension and Debugging Challenges</h2>
+<p>I added a new Firefox extension to visualize markdown, which makes writing markdown in Neovim much more convenient. While it doesn't automatically reload, I can easily refresh the page.</p>
+<h2 id="blog-updates-and-future-plans">Blog Updates and Future Plans</h2>
+<p>I've spent a few hours updating the blog, transcribing, cleaning, and publishing journal entries from the last week. I noticed some styles in the blog aren't quite right, and I'd like to use the light style I created for my editor. I might add an option to toggle between dark and light modes, or even recognize the user's system theme preference. I'll add this to my backlog as I don't have time to implement it now.</p>
+<p>Speaking of backlogs, I need a better system for appending tasks and tracking them. My current plain.so setup isn't ideal, even though I can deploy it locally. I need something as easy as my current recording process, perhaps extracting information from recordings to create or update tickets automatically. It needs to be something that doesn't get in the way and can provide reports on pending tasks and priorities.</p>
+<h2 id="academic-aspirations-and-financial-considerations">Academic Aspirations and Financial Considerations</h2>
+<p>Over the last few days, I've been considering continuing my mathematics degree with the Open University. It's expensive, and I paused it when my daughter was born. Now that I have a bit more time, I'd like to go back. However, I'm valuing my time and want to avoid high-pressure environments, especially with my other projects like Catacloud. This means I can't afford high university fees.</p>
+<p>My long-term vision (10-15 years from now) is to move into fundamental research and academia, ideally pursuing a PhD. I enjoy working on the edge of knowledge, exploring new things, and advancing knowledge rather than repetitive work. I believe academia is the right environment for me, despite its potential political and cultural issues. I know there isn't much money in it, but I'm primarily driven by the work itself.</p>
+<p>I'm not sure if the Open University's cost is justified, especially given my current financial situation. I'm enjoying working at EBI due to its flexibility, hoping my personal projects will eventually provide more financial independence. I've also considered the Open University of Catalonia, which is cheaper, but I'm unsure if their degrees align with what I want to study. I might be wrong about needing a university route to publish and be part of a research group, but that's my impression from observing academia. I also question whether computation or mathematics is the right path for me. I find beauty in mathematics, but I'm not sure if I'm good at it. These are all doubts I'm currently grappling with.</p>
+<h2 id="ebi-work-validation-engine-and-gff3-integration">EBI Work: Validation Engine and GFF3 Integration</h2>
+<p>Regarding EBI work, the validation engine seems to be working pretty much now. I need to migrate some validations to it. There's a question about validating headers, which are file-level validations that come before features. I might add a new specific validation type, perhaps only for GFF3, to handle header validation. This seems workable. I also need to integrate the GFF3 tool into the actual pipeline.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

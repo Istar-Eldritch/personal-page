@@ -1,0 +1,82 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  GFF3 Validator Refactor, NPU Exploration, and Academic Reflections
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">GFF3 Validator Refactor, NPU Exploration, and Academic Reflections</h1>
+        <span class="blog-meta">
+    2025-08-13
+    </br>
+    <span>3 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today was less productive than hoped from a shipping perspective, primarily due to a significant refactor of the GFF3 validators. I'm now separating semantic from syntactic validations.</p>
+<h2 id="gff3-validator-refactor">GFF3 Validator Refactor</h2>
+<p>Syntactic validation errors are reported by readers or transformers as they occur, notifying the validation engine which then decides whether to continue or stop the process based on rule sets.</p>
+<p>Semantic validations, on the other hand, require multiple inputs and make sense of a larger context, not just a single feature.</p>
+<p>The challenges I face at the moment are mainly with semantic validations, that could be doing validations at a feature level, potentially avoiding having to parse a whole annotation before deciding its not correct.</p>
+<p>Some code cleanup is also needed as it's currently a bit "gnarly."</p>
+<p>The validation engine for EBI work is mostly functional. I need to migrate existing validations to it. A specific challenge involves handling file-level header validations, particularly for GFF3, which might require a new validation type. Integrating the GFF3 tool into the main pipeline is also a next step.</p>
+<h2 id="npu-exploration-on-mnt-reform">NPU Exploration on MNT Reform</h2>
+<p>I'm exploring running AI models on my MNT Reform, which has a 3588 processor module with 32GB of RAM and an NPU. My goal is to leverage this hardware to run LLMs locally and offline, especially for documentation and processing journal transcripts. This would reduce reliance on cloud providers like Google and explore self-hosting options. I was also looking at Hetzner, which offers powerful machines for a reasonable monthly cost.</p>
+<p>I attempted to run an LLM using a local container, but it's very slow and doesn't utilize the NPU. To use the NPU, I need to install a Rockchip SDK and its dependencies, including PyTorch. Compiling these dependencies is proving to be a lengthy process. I have compiled the LLM binary itself, but I still need to transform Hugging Face transformer models into a format runnable on the NPU, which requires the slow compilation process. I hope to make progress on this tomorrow.</p>
+<h2 id="academic-and-mathematical-reflections">Academic and Mathematical Reflections</h2>
+<p>A co-worker recommended I start learning mathematics from scratch, suggesting Math Olympiad problems at a middle school level. I found them surprisingly non-trivial. She also recommended set theory and then algebra, topics for which I already own books. I've previously looked into set theory but need to revisit it for better retention.</p>
+<p>I'm considering resuming my mathematics degree with the Open University. However, it's expensive, and I'm valuing my time and avoiding high-pressure environments, especially with personal projects like Catacloud. My long-term aspiration (10-15 years out) is to move into fundamental research and academia, ideally pursuing a PhD, as I enjoy working at the edge of knowledge. While I recognize the limited financial returns, the work itself is the primary driver. I'm weighing the cost of the Open University against my financial situation and considering cheaper alternatives like the Open University of Catalonia, though I'm unsure if their degrees align with my interests. I also question whether computation or mathematics is the right path and my aptitude for mathematics.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

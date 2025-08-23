@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Workstation Setup, LLM Exploration, and Future Improvements
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Workstation Setup, LLM Exploration, and Future Improvements</h1>
+        <span class="blog-meta">
+    2025-08-18
+    </br>
+    <span>3 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today was focused on setting up my workstation, exploring large language models (LLMs), and planning future improvements.</p>
+<h2 id="workstation-cleaning-and-hardware-installation">Workstation Cleaning and Hardware Installation</h2>
+<p>I began by thoroughly cleaning my workstation, dismantling everything to remove dust with a vacuum, brush, and damp cloth. I installed four Noctua NF-A12 industrial fans (two in the front, two in the back), which are affordable and offer decent performance. I connected a new 1000W power supply and cleaned the CPU block as much as possible. While some dust reappeared on the graphics card after startup, the CPU temperature is holding well.</p>
+<p>I also installed the new RX 7900 XTX graphics card. It's a large card, fitting just barely. The fans point downwards, almost touching the power supply, which might restrict airflow. For my use case of intensive bursts (like LLM tasks), it seems to manage temperatures adequately, though it heats up quickly.</p>
+<h2 id="software-setup-and-llm-exploration">Software Setup and LLM Exploration</h2>
+<p>I installed a new Debian OS without disk encryption to enable Wake-on-LAN. I then set up two Docker images: Open Web UI, an interface for LLM systems, and Ollama, with AMD graphics card support. Ollama works very fast with the RX 7900 XTX. I've been successfully running models like Deepseek-r1:8b and gpt-oss:20b, finding them quite performant.</p>
+<p>I attempted to integrate Ollama with my Neovim Avante plugin, but it didn't work well. Avante's prompts seem to confuse these local models, though it functions perfectly with official GPT and Gemini models. This is a minor issue for now, as I have other priorities.</p>
+<p>For general querying, replacing my previous Kagi usage, this local setup works fantastically. I need to configure Open Web UI to be more agentic, allowing it to integrate search tools properly. Currently, it constructs and executes searches, then summarizes results, which isn't ideal. I prefer a system that performs searches only when it deems necessary, potentially conducting multiple searches for better information gathering.</p>
+<p>I'm also considering the Open Web UI project's commercial aspects and custom models. I'm not entirely convinced by its approach, and I might need something more akin to Avante, though I don't have time to develop my own solution.</p>
+<h2 id="power-management-and-future-improvements">Power Management and Future Improvements</h2>
+<p>I've implemented a script that turns off the workstation after 30 minutes of inactivity, specifically monitoring traffic on SSH (port 22) and Ollama (port 11434). I've also added a Wake-on-LAN button on my Home Assistant for easy remote power-on.</p>
+<p>Future improvements include:</p>
+<ul>
+<li><strong>Fan Control:</strong> Only one of my four new fans is currently connected. I need a control board to connect all fans to the motherboard, allowing them to be controlled based on temperature sensors. This should improve internal airflow.</li>
+<li><strong>GPU Airflow:</strong> I might add a support peg to slightly lift the graphics card, creating more space for airflow underneath and aiding heat dissipation.</li>
+<li><strong>Dust Filtration:</strong> I received a PVC mesh that I plan to add for dust capture, particularly on the top grid, to prevent dust ingress. Proper fan configuration should also help maintain positive airflow and reduce dust.</li>
+<li><strong>CPU Cooling Block:</strong> While the current CPU cooling is adequate, I might consider changing the dissipation block in the future if performance degrades.</li>
+</ul>
+<p>Finally, I'm reconsidering posting all these personal journal entries publicly. I think it might be better to store them locally or on my NAS, perhaps using a Zettelkasten-like system. I can always collect these entries later for blog posts, but daily publishing might not be necessary for personal reflections.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

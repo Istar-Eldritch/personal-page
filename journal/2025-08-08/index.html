@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Epoch Refinements and Performance Considerations
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Epoch Refinements and Performance Considerations</h1>
+        <span class="blog-meta">
+    2025-08-08
+    </br>
+    <span>1 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today, I focused on making improvements to Epoch, particularly concerning how events are persisted and how the aggregate state is managed.</p>
+<h2 id="epoch-improvements">Epoch Improvements</h2>
+<p>I've implemented changes in Epoch that primarily affect the order in which the aggregate persists events. Additionally, the aggregate now pre-hydrates its state if it wasn't already present. This means we could potentially wipe the entire table, and the aggregate would be capable of reconstructing its state from the event stream before applying any new events.</p>
+<h2 id="performance-considerations">Performance Considerations</h2>
+<p>One aspect that has become painfully obvious is that the performance of this library is not optimal. I'm currently using <code>clone</code> extensively, and there are many static instances scattered throughout the codebase. These areas will require significant work at some point to improve overall performance.</p>
+<p>Despite the performance issues, from a usability perspective, Epoch is starting to become quite useful.</p>
+<h2 id="event-versioning">Event Versioning</h2>
+<p>I've been contemplating whether to continue forcing users to manually set the event version. I've decided that it would be more intuitive and robust for the aggregate itself to set the event version, deriving it from the previous version of the state. This approach simplifies the API for users and ensures consistency.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

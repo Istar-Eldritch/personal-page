@@ -1,0 +1,81 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  Epoch Integration, Projection Puzzles, and Billing Blueprints.
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">Epoch Integration, Projection Puzzles, and Billing Blueprints.</h1>
+        <span class="blog-meta">
+    2025-07-28
+    </br>
+    <span>3 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today, I primarily focused on the Catacloud and Epoch integration, which progressed well. The only adjustment I had to do to Epoch was to include the aggregate ID in commands, as it was missing.</p>
+<h3 id="epoch-error-handling-and-aggregate-design">Epoch Error Handling and Aggregate Design</h3>
+<p>I've realized that Epoch's error handling needs significant improvement. The current approach of ubiquitous <code>Box</code> for errors makes handling cumbersome and downcasting annoying. This is a critical area for future work, though the current implementation is minimally viable for my immediate needs.</p>
+<p>I successfully implemented the <code>Job</code> aggregate and refined the db seeds to generate correct entities using events. This aggregate and events allows me to calculate the run duration for a user over an interval, providing total runtime in seconds across their jobs. I also added the specific job's runtime into the UI, calculated from its start and completion times, which will serve as the foundation for billing cpu usage.</p>
+<h3 id="job-files-and-projection-challenges">Job Files and Projection Challenges</h3>
+<p>A significant challenge emerged with job files, specifically their linking and unlinking. Job files are managed through an intermediary table, allowing file reuse across multiple jobs. My current system applies a command to a job, triggering link and unlink events. The UI unlinks all files from a job before relinking only the selected ones.</p>
+<p>The core issue lies in a new projection for job files. This projection reacts to events from the job aggregate to hydrate file link states. However, the "unlink files" command is generic, unlinking all files for a given job ID. My current CRUD system, designed for single-entity operations (create, update, delete), doesn't elegantly handle events affecting multiple entities, like batch deletions or updates. This makes managing projections tied to specific IDs tricky when a generic command affects a collection of files.</p>
+<p>I'm currently storing this state in Postgres and contemplating using the job ID as the identifier for the file state, essentially treating the state as a list of file IDs. While this feels a bit hacky and might impact performance, it's a direction I'm exploring. I need to devise a more flexible Epoch model to accommodate events that create, update, or delete multiple entities without forcing users to implement specialized multi-entity methods.</p>
+<h3 id="future-work-storage-billing">Future Work: Storage Billing</h3>
+<p>Next, I need to finalize the job files implementation. Subsequently, I'll focus on calculating "gigabytes per hour" or "gigabytes-hours" for file storage. This metric will be crucial for billing users for storage consumption. The challenge here is how to attribute storage cost for input files shared across multiple jobs. The cost might need to be divided among jobs that utilize the same file, or perhaps only consider files not shared by other users.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Overall, it was a productive day with some significant progress and a clear understanding of immediate and future challenges. I'm quite tired but remain focused on the "money part" of the project, which is vital for its completion. There's still a lot to do.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>

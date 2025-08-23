@@ -1,0 +1,83 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>
+    
+  MNT Reform Upgrades
+
+  </title>
+
+  
+    <meta name="description" content="Ruben's Personal web page">
+    <meta name="author" content="Ruben Paz">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quantico" rel="stylesheet">
+    <link rel="stylesheet" href="/index.css">
+  
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <section class="landing">
+    <div class="landing_bg">
+      <div class="">
+        <div class="container">
+        <!-- TODO: Make this menu responsive--!>
+        <div class="menu">
+        
+            <a class="menu-item" href="&#x2F;">Home</a>
+        
+            <a class="menu-item" href="&#x2F;blog">Blog</a>
+        
+            <a class="menu-item" href="&#x2F;journal">Journal</a>
+        
+        </div>
+
+        <div class="content">
+          
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline" class="blog-title">MNT Reform Upgrades</h1>
+        <span class="blog-meta">
+    2025-08-01
+    </br>
+    <span>6 minute read</span>
+</span>
+    </header>
+    <div itemprop="blog-content">
+      <p>Today, I've been working on Epoch for Catacloud, specifically adding user metrics. Initially, I encountered an issue where handling a create command without previous state was problematic due to the segregated CRUD event structure. My temporary solution involved leveraging "upsert" for state persistence, treating every metric update as a creation event to allow "upsert" to handle modifications. While functional, this approach was a workaround. With the recent simplification of Epoch's event and command handling, where CRUD segregation has been removed, a more elegant solution is now possible.</p>
+<p>A significant challenge emerged when determining where to issue the event that updates these metrics. Initially, I considered adding it to the <code>handle delete</code> functions for files and file parts. However, this metrics change event isn't part of the file aggregate; it belongs to the user aggregate. This realization highlighted the need for sagas, which weren't yet implemented in Epoch. Without sagas, mixing file aggregate logic with user aggregate logic was unavoidable, which is not ideal. This problem was further compounded by the desire to support organizations in Catacloud, where metrics would need to be tracked at an organizational level, necessitating sagas to manage changes based on data store changes.</p>
+<p>To address these fundamental architectural issues, I've made substantial progress on Epoch. I've simplified event and command handling, moving towards essentially only commands and events, removing the problematic CRUD segregation. Handlers now receive only the events they are interested in through a subset enum for filtering, which has significantly improved the workflow. I also added a new Saga trait, which I am currently testing, directly enabling the management of cross-aggregate concerns like organizational metrics. This simplification in event handling, however, requires substantial changes in Catacloud, as a single, larger handler is now needed for all events of every Aggregate.</p>
+<p>Furthermore, I've added robust error handling to Epoch. Previously, everything was "boxed," but now we have specific errors for system occurrences, which can be mapped to precise error responses. This is a major improvement. As expected, given these changes, Catacloud currently shows many errors, and I will continue working on this tomorrow.</p>
+<h2 id="mnt-reform-upgrades">MNT Reform Upgrades</h2>
+<p>I recently received an antenna and pigtail for to upgrade my MNT Reform. I installed it by drilling a 6mm hole in the side plate to pass the connector through and then connected the pigtail to the Wi-Fi auxiliary port. The installation looks good, almost as if it came with the device. My only concern is that when I rotate the connector to tighten it, the pigtail sometimes rotates, which could damage it. I need to find a way to lock it in place to prevent rotation.</p>
+<p>I've conducted some tests, and without the antenna, the coverage is similar to before. With the antenna, I've seen a considerable boost, about 10-15% more coverage reported by the network manager. Having an external antenna is clearly beneficial, even though this one is low gain (3 dbi). I could potentially use a larger, omnidirectional antenna for even more boost. I'm even considering a larger car antenna for experiments, like connecting to networks or capturing packages, reminiscent of what I did as a kid. I'm also interested in experimenting with an SDR system integrated into the Reform, given its internal space.</p>
+<p>On the cosmetic side, I'd like to experiment with changing the backplate of the screen to integrate an embedded antenna, which would further increase coverage. The only hesitation is that I really like the current screen backplate and don't want to replace it with a PLA or ABS one, though I might try to see how it looks.</p>
+<p>Another recent development is receiving a new cable for my headphones. The old one broke, and I couldn't fix it. The new cable has a larger, screwing jack (not 3.5mm, maybe 6mm) with an adapter. The MNT Reform's jack connector is recessed, and the threads on the new jack prevented a proper fit. I had to file down the threads to make it connect. It looks okay; the filed finish almost adds to the industrial aesthetic of the cable, and it connects fine to the Reform, which was my main goal. This allows for proper audio.</p>
+<p>For future audio upgrades, I want to address the lack of an internal microphone on the MNT Reform. I need a microphone for recordings and video calls. Currently, I use a USB microphone, which works well, but I'd prefer to use the Reform's audio input, which I believe supports both audio in and out. I might get new headphones with an integrated microphone. While the audio quality might not be as good as the USB microphone, it offers portability without carrying a large microphone.</p>
+<p>I've also ordered a basic webcam, which hasn't arrived yet. In the future, I might experiment with building my own webcam using a Raspberry Pi Zero for better image quality and more openness than commercial webcams. This setup would allow me to connect the webcam only when needed and potentially install it on my desk, connecting via USB.</p>
+<p>Other potential upgrades for my MNT Reform include adding a serial port connector and possibly an internal FPGA (like the tiny FPGA Bx) for hacking. While I can always plug in an FPGA via USB, having it integrated would be convenient for on-the-go hacking. All these USB-based additions necessitate an internal USB hub. The Reform's motherboard has a couple of connectors, one for the trackball and another for the keyboard. I could disconnect one, add a hub, and gain more internal USB ports for devices like a Bluetooth receiver.</p>
+<p>The concern with an internal USB hub is increased energy consumption. I need to explore options for switching off unused USB devices, either with a physical switch or through software. For the USB hub itself, I might get an off-the-shelf one or even design my own board based on the open hardware Nano Hub design, modifying it to fit the Reform's connectors without soldering. This would be a good learning experience.</p>
+<p>Overall, I'm really enjoying this laptop. It's become my main computer, and I've been using it for a few weeks without touching my desktop. It's great.</p>
+
+    </div>
+</article>
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<!--
+  <script src="index.js"></script>
+  <noscript>JavaScript must be enabled to visualise this site</noscript>
+  --!>
+</body>
+</html>
